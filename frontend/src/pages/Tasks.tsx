@@ -32,10 +32,10 @@ const Tasks: React.FC = () => {
 
   const handleAddTask = async () => {
     try {
-      await axios.post('/tasks/', { title: newTaskTitle, description: '' });
+      await axios.post('/api/tasks/', { title: newTaskTitle, description: '' });
       setNewTaskTitle('');
       // Refresh the task list
-      const response = await axios.get('/tasks/');
+      const response = await axios.get('/api/tasks/');
       setTasks(response.data);
     } catch (error) {
       console.error('Error adding task', error);
