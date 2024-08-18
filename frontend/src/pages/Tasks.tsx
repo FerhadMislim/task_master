@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../api/axios'; // Use the configured axios instance
+import { getTasks, addTask } from '../api/axios'; 
 import { useAuth } from '../context/AuthContext';
 
 interface Task {
@@ -15,13 +15,11 @@ const Tasks: React.FC = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    console.log('User:', user);
     if (user) {
       const fetchTasks = async () => {
         try {
-          const response = await axios.get('/api/tasks/');
-          console.log(response.data);
-          setTasks(response.data);
+          const taskData = await getTasks();
+          setTasks(taskData);
         } catch (error) {
           console.error('Error fetching tasks', error);
         }
@@ -32,11 +30,11 @@ const Tasks: React.FC = () => {
 
   const handleAddTask = async () => {
     try {
-      await axios.post('/api/tasks/', { title: newTaskTitle, description: '' });
+      await addTask(newTaskTitle);
       setNewTaskTitle('');
       // Refresh the task list
-      const response = await axios.get('/api/tasks/');
-      setTasks(response.data);
+      const taskData = await getTasks();
+      setTasks(taskData);
     } catch (error) {
       console.error('Error adding task', error);
     }
