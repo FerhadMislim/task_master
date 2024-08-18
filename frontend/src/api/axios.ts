@@ -27,14 +27,46 @@ export const getTasks = async () => {
   }
 };
 
-export const addTask = async (title: string) => {
+export const getTask = async (id: number) => {
   try {
-    const response = await instance.post('/tasks/', { title:title, description: 'll', is_completed: false },)
+    const response = await instance.get(`/tasks/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching task', error);
+    throw error;
+  }
+};
+
+export const addTask = async (taskData: { title: string; description: string; is_completed: boolean }) => {
+  try {
+    const response = await instance.post('/tasks/',taskData);
     return response.data;
   } catch (error) {
     console.error('Error adding task', error);
     throw error;
   }
 };
+
+export const updateTask = async (id: number, data: { title: string, description: string, is_completed: boolean }) => {
+  try {
+    const response = await instance.put(`/tasks/${id}/`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating task', error);
+    throw error;
+  }
+};
+
+
+export const deleteTask = async (id: number) => {
+  try {
+    const response = await instance.delete(`/tasks/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting task', error);
+    throw error;
+  }
+};  
+
 
 export default instance;
