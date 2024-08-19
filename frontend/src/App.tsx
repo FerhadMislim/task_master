@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import ListTasks from './pages/ListTasks';
+import TaskDetails from './pages/TaskDetails';
 import AddTask from './pages/AddTask';
 import { AuthProvider } from './context/AuthContext';
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/tasks" element={<ListTasks />} />
+          <Route path="/tasks/:id" element={<TaskDetails />} />
           <Route path="/add-task" element={<AddTask />} />
         </Routes>
       </Router>

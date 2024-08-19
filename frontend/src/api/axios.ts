@@ -12,7 +12,6 @@ instance.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
     config.timeout = 30*60*1000; // 30 minutes
   }
-  console.log('config', config);
   return config;
 });
 
