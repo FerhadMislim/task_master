@@ -1,4 +1,3 @@
-# tasks/management/commands/generate_fake_data.py
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from faker import Faker
@@ -9,13 +8,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         fake = Faker()
+        # Delete all tasks and users
+        Task.objects.all().delete()
+        User.objects.all().delete()
         
         # Create some users
         for _ in range(5):
             user = User.objects.create_user(
                 username=fake.user_name(), 
                 email=fake.email(),
-                password='password123'
+                password='password123'#phenderson
             )
             self.stdout.write(self.style.SUCCESS(f'Created user: {user.username}'))
 

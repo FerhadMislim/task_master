@@ -12,5 +12,4 @@ class TaskViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        # Save the task with the current user
         serializer.save(user=self.request.user)
